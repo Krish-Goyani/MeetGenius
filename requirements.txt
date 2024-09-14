@@ -1,0 +1,9 @@
+streamlit-webrtc
+streamlit 
+opencv-python-headless
+PyMuPDF
+python-docx
+python-pptx
+PyPDF2
+faiss-cpu
+sentence_transformers
