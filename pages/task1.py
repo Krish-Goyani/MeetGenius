@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 from docx import Document
 import PyPDF2
 import re
@@ -58,16 +57,15 @@ def extract_text_from_docx(docx_file_path):
     text = "\n".join([para.text for para in doc.paragraphs])
     return clean_text(text)
 
+
 # Streamlit interface
 st.title("Pre-Meeting Document Management")
-
-
 
 with st.form(key = "form"):
     
     # Step 1: Add Discussion Points
     st.subheader("Add Discussion Points")
-    discussion_points = st.text_area("Enter your discussion points (one per line)", height=200)
+    discussion_points = st.text_area("Enter your discussion points (new point in new line)", height=200)
         
     # Step 2: Upload Meeting Documents
     st.subheader("Upload Relevant Documents")
