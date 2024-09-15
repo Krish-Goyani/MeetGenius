@@ -49,7 +49,7 @@ discussion_points = load_discussion_points(discussion_points_file_path)
 
 for i, content in enumerate(chunks):
      doc = Document(page_content=content)
-     
+
 
 doc_embeddings = model.encode(chunks)
 doc_embeddings = [embedding.tolist() for embedding in doc_embeddings]
@@ -81,8 +81,8 @@ vector_store = PineconeVectorStore(index=index, embedding=embeddings)
 
 ids = [str(i) for i in range(len(doc_embeddings))]  # Generate unique string IDs for the sentences
 vectors_to_upsert = list(zip(ids, doc_embeddings))
-index.upsert(vectors=vectors_to_upsert) # L2 distance index
- # Add vectors to index
+index.upsert(vectors=vectors_to_upsert) 
+
 
 combined_input = ""
 
