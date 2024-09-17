@@ -6,6 +6,7 @@ import os
 from langchain_google_genai import GoogleGenerativeAI
 from langchain.chains import LLMChain
 from MeetGenius_logger import logger
+from config.path_manager import path_manager
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -74,48 +75,6 @@ Meeting Transcript:
 
 
 
-
-'''
-summary_prompt_template = PromptTemplate.from_template(summary_prompt_template)
-google_api_key = os.getenv("GOOGLE_API_KEY")
-llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key=google_api_key)
-llm_chain = LLMChain(llm=llm, prompt=summary_prompt_template)
-stuff_chain = StuffDocumentsChain(llm_chain=llm_chain, document_variable_name="meeting_transcript")
-
-
-with open("database\meeting_transcript.txt", 'r') as file:
-    meeting_transcript = file.read()
-meeting_transcript = Document(page_content=meeting_transcript)
-
-summary = stuff_chain.run([meeting_transcript])
-
-discussion_prompt = PromptTemplate(
-    input_variables=["meeting_transcript"],
-    template=discussion_template
-)
-key_decision_prompt = PromptTemplate(
-    input_variables=["meeting_transcript"],
-    template=key_decision_template
-)
-action_items_prompt = PromptTemplate(
-    input_variables=["meeting_transcript"],
-    template=action_items_template
-)
-
-
-
-# Create the LLM Chains
-discussion_chain = LLMChain(llm=llm, prompt=discussion_prompt)
-decision_chain = LLMChain(llm=llm, prompt=key_decision_prompt)
-action_items_chain = LLMChain(llm=llm, prompt=action_items_prompt)
-
-discussion_points = discussion_chain.run(meeting_transcript)
-key_decisions = decision_chain.run(meeting_transcript)
-action_items = action_items_chain.run(meeting_transcript)
-def generate_detailed_summary():
-    summary = 
-'''
-
 google_api_key = os.getenv("GOOGLE_API_KEY")
 llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key=google_api_key)
 
@@ -128,7 +87,8 @@ def create_llm_chain(template: str, llm_instance, doc_var_name="meeting_transcri
     return LLMChain(llm=llm_instance, prompt=prompt_template)
 
 # Reusable function to load the meeting transcript
-def load_meeting_transcript(file_path: str) -> Document:
+def load_meeting_transcript(file_path) -> Document:
+    print(f"======================================={file_path}")
     with open(file_path, 'r') as file:
         meeting_transcript = file.read()
     logger.info("meeting transcipt loaded")
@@ -145,7 +105,7 @@ decision_chain = create_llm_chain(key_decision_template, llm)
 action_items_chain = create_llm_chain(action_items_template, llm)
 
 
-def generate_meeting_insights(file_path: str):
+def generate_meeting_insights(file_path):
     meeting_transcript = load_meeting_transcript(file_path)
 
     # Run each chain and get results
@@ -159,7 +119,8 @@ def generate_meeting_insights(file_path: str):
 
 # Main function to generate and print insights
 def generate_detailed_summary():
-    meeting_transcript_path = "database/meeting_transcript.txt"
+    meeting_transcript_path = path_manager.meeting_transcript
+    print(meeting_transcript_path)
     summary, discussion_points, key_decisions, action_items = generate_meeting_insights(meeting_transcript_path)
     
     return f"{summary} \n\n {discussion_points} \n\n {key_decisions} \n\n {action_items}"

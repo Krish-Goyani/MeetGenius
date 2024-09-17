@@ -1,5 +1,6 @@
 from warnings import filterwarnings
 filterwarnings("ignore")
+from config.path_manager import path_manager
 from moviepy.editor import VideoFileClip
 from transformers import pipeline
 from langchain_google_genai import GoogleGenerativeAI
@@ -105,17 +106,21 @@ def discussion_point_checker(transcript, discussion_points_path):
     return discussed_points, undiscussed_points
 
 def transcriber(meeting_audio_path, transcript_file_name):
+
     transcriber = pipeline(
                 "automatic-speech-recognition",
                 model="openai/whisper-small.en"
                 )
-
     result = transcriber(meeting_audio_path)
-    with open(transcript_file_name, 'w') as file:
-            file.write(result['text'])
+    transcript = result['text']
 
+    with open(transcript_file_name, 'w') as file:
+            
+            file.write(transcript)
+    print(transcript)
     logger.info("transcribe generated")
-    return result['text']
+    return transcript
+
 # Function to extract audio from the video
 def extract_audio(video_file_path,meeting_audio_path):
 
@@ -125,11 +130,11 @@ def extract_audio(video_file_path,meeting_audio_path):
 
 
 def discussion_point_tracker():
-    meeting_audio_path = "database/meeting_audio.mp3"
-    meeting_video_path = "database/meeting_video.mp4"
-    discussion_points_path = "database/discussion_points.json"
-    transcript_file_name = 'database/meeting_transcript.txt'
-
+    meeting_audio_path = path_manager.meeting_audio
+    meeting_video_path = path_manager.meeting_video
+    discussion_points_path = path_manager.discussion_points
+    transcript_file_name = path_manager.meeting_transcript
+    
     extract_audio(meeting_video_path, meeting_audio_path)
 
     transcript = transcriber(meeting_audio_path, transcript_file_name)

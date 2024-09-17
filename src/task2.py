@@ -1,4 +1,3 @@
-
 import json
 import os
 from MeetGenius_logger import logger
@@ -10,7 +9,7 @@ from uuid import uuid4
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 from pinecone import Pinecone, ServerlessSpec
-
+from config.path_manager import path_manager
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -114,8 +113,9 @@ def initialize_vectore_database(documents, index_name):
 
 
 def agenda_generation():
-    documents_content_file_path = 'database\documents_content.txt'  
-    discussion_points_file_path = "database\discussion_points.json"
+    documents_content_file_path = path_manager.documents_content 
+    discussion_points_file_path = path_manager.discussion_points
+    
     index_name = "meeting-documents-embeddings"
 
     documents = split_document_content(documents_content_file_path)

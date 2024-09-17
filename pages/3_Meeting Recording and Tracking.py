@@ -1,5 +1,5 @@
 import streamlit as st
-import time  # Import time to add a delay for a better user experience
+from config.path_manager import path_manager
 from src import task3
 
 # Streamlit app with a more engaging title
@@ -15,11 +15,10 @@ Simply upload a video file, and let the AI and RAG do the rest!
 video_file = st.file_uploader("Upload Your Meeting Video", type=["mp4"])
 
 if video_file is not None:
-    # Save the uploaded video file to a specific path
-    meeting_video_path = "database/meeting_video.mp4"
+
     
     # Save the file to the local directory
-    with open(meeting_video_path, "wb") as f:
+    with open(path_manager.meeting_video, "wb") as f:
         f.write(video_file.getvalue())
     
     # Display the uploaded video in the app

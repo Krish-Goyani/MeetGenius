@@ -1,6 +1,5 @@
 import streamlit as st
 from src import task2 
-import time
 
 st.set_page_config(
     page_title="MeetGenius",
@@ -21,5 +20,5 @@ Please wait for a few seconds to see the magic unfold...
 # Generate the agenda using the AI task
 response = task2.agenda_generation()
 
-st.write(response)
+st.markdown(response)
 

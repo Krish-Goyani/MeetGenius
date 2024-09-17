@@ -1,0 +1,10 @@
+paths:
+  local_database: database
+  discussion_points: database/discussion_points.json
+  documents_content: database/documents_content.txt
+  meeting_video: database/meeting_video.mp4
+  meeting_audio: database/meeting_audio.mp3
+  meeting_video: database/meeting_video.mp4
+  meeting_transcript: database/meeting_transcript.txt
+
+

@@ -3,7 +3,7 @@ import json
 from  src import task1 
 import os
 from MeetGenius_logger import logger
-
+from config.path_manager import path_manager
 st.set_page_config(
     page_title="MeetGenius",
     page_icon="🤝",
@@ -35,11 +35,11 @@ with st.form(key = "form"):
         documents_content = task1.pre_process_documents(uploaded_files)
         discussion_points = [x.strip() for x in discussion_points.split("\n")]
         
-        os.makedirs("database", exist_ok=True)
-        with open("database/discussion_points.json", "w") as file:
+        os.makedirs(path_manager.local_database, exist_ok=True)
+        with open(path_manager.discussion_points, "w") as file:
             json.dump(discussion_points, file)
 
-        with open("database/documents_content.txt", "w") as file:
+        with open(path_manager.documents_content, "w") as file:
             file.write(documents_content)
 
         st.success("Thank you. You may now proceed to the next phase, where the agenda will be created based on your discussion points and the documents. ")
