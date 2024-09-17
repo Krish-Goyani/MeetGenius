@@ -4,6 +4,11 @@ import re
 from pptx import Presentation
 from  MeetGenius_logger import logger
 
+"""
+task1 : Pre-Meeting Document Management
+- all docuemnts uploaded from users first of all are converted into text and than cleaned.
+- alnog with that discussion points enterd from user stored in json formate for easy retrieval,
+"""
 def clean_text(text):
     # Remove all escape characters
     cleaned_text = re.sub(r'[\n\r\t\f\v]', ' ', text)
@@ -20,6 +25,8 @@ def clean_text(text):
     return cleaned_text
 
 def extract_text_from_pdf(pdf_file_path):
+    #read pdf file and extract in to text
+
     pdf_reader = PyPDF2.PdfReader(pdf_file_path)
     text = ""
     for page in pdf_reader.pages:
@@ -27,11 +34,11 @@ def extract_text_from_pdf(pdf_file_path):
     return clean_text(text)
 
 def extract_text_from_pptx(pptx_file_path):
+    #read pptx file and extract in to text
     # Load the pptx file
     prs = Presentation(pptx_file_path)
 
     text = []
-
     # Loop through each slide
     for slide in prs.slides:
         # Loop through each shape in the slide 
@@ -42,10 +49,13 @@ def extract_text_from_pptx(pptx_file_path):
     return clean_text("\n".join(text))
 
 def extract_text_from_txt(txt_file_path):
+    #read txt file and extract in to text
     text = txt_file_path.read().decode('utf-8')
     return clean_text(text)
 
 def extract_text_from_docx(docx_file_path):
+    #read pdf docx and extract in to text
+
     # Load the docx file
     doc = Document(docx_file_path)
 
@@ -56,8 +66,12 @@ def extract_text_from_docx(docx_file_path):
 
 
 def pre_process_documents(uploaded_files):
+    """
+    takes uploaded files than pass it in their extractor function according to their format
+    and return accumulated content of all documents
+    """
 
-    logger.info("text cleaning started")
+    logger.info("documents loading and text cleaning started")
 
     documents_content = ""
 

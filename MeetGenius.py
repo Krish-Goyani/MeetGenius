@@ -1,14 +1,17 @@
 import streamlit as st
 
 def main():
+    
     st.set_page_config(page_title="MeetGenius", page_icon="🧠", layout="wide")
+
+    with st.sidebar:
+        st.markdown("The one-stop solution for the meeting life cycle🔁")
 
     # Header
     st.title("Welcome to MeetGenius 🧠")
-    st.subheader("Your AI-powered meeting assistant")
+    st.subheader("Your AI-powered meeting assistant", divider='rainbow')
 
     # Project Description
-    st.markdown("---")
     st.header("About MeetGenius")
     st.write("""
     MeetGenius is an innovative tool designed to revolutionize the way organizations manage and document meetings. 
@@ -26,15 +29,15 @@ def main():
     """)
 
     # Key Features
-    st.header("Key Features 🌟")
+    st.header("Key Features 🌟", divider="rainbow")
     
-    st.subheader("1. Pre-Meeting Document Management")
+    st.subheader("1. Pre-Meeting Document Management", divider="gray")
     st.write("""
     - Upload and organize relevant documents before the meeting
     - Collaborative platform for participants to add discussion points
     """)
 
-    st.subheader("2. Intelligent Agenda Creation")
+    st.subheader("2. Intelligent Agenda Creation", divider="gray")
     st.write("""
     - Automatic organization of discussion points into a logical flow
     - AI-driven time allocation suggestions for each agenda item
@@ -42,16 +45,15 @@ def main():
     - Generation of clear, concise meeting agendas with objectives and expected outcomes
     """)
 
-    st.subheader("3. Meeting Recording and Real-Time Tracking")
+    st.subheader("3. Meeting Recording and Real-Time Tracking", divider="gray")
     st.write("""
     - High-quality audio and video recording capabilities
-    - Real-time speech-to-text transcription for accurate documentation
+    - The speech-to-text transcription for accurate documentation
     - AI-powered topic tracking to match discussions with agenda items
-    - Automatic flagging of unresolved issues and new action items
-    - Real-time collaboration features for note-taking and idea sharing
+    - Automatic flagging of unresolved issues.
     """)
 
-    st.subheader("4. Comprehensive Post-Meeting Summary")
+    st.subheader("4. Comprehensive Post-Meeting Summary", divider="gray")
     st.write("""
     - AI-generated detailed summaries of the entire meeting
     - Extraction and highlighting of key decisions made during the meeting
@@ -60,7 +62,7 @@ def main():
 
 
     # Technologies Used
-    st.header("Powered by Advanced Technologies 🔬")
+    st.header("Powered by Advanced Technologies 🔬", divider="rainbow")
     st.write("""
     MeetGenius leverages state-of-the-art technologies to provide an unparalleled meeting management experience:
 
@@ -84,7 +86,7 @@ def main():
 
     """)
 
-    
+
 
     # Footer
     st.markdown("---")

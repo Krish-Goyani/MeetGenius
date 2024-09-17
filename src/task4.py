@@ -1,4 +1,3 @@
-from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 from langchain.chains.llm import LLMChain
 from langchain_core.prompts import PromptTemplate
 from langchain_core.documents.base import Document
@@ -10,7 +9,14 @@ from config.path_manager import path_manager
 from dotenv import load_dotenv
 load_dotenv()
 
+"""
+task 4 : Post-Meeting Summary
+- In this task first of all using summary chain that create overall summary of the meeting 
+than consequently discussion chain, key decision chain and action items chain 
+using unique prompt for each tasks at last combine all and return the combination of all points.
+"""
 
+# prompt template for summary
 summary_prompt_template = """
 You are an expert summarizer. Given the transcript of the entire meeting, 
 provide a comprehensive and clear summary without losing the essential context,
@@ -21,7 +27,7 @@ Meeting Transcript:
 "{text}"
 
 """
-
+#prompt template for what was discussed in meeting.
 discussion_template = """
 You are an AI assistant specialized in identifying and summarizing all discussions made during meetings. 
 Based on the provided meeting transcript, 
@@ -36,6 +42,7 @@ Meeting Transcript:
 {meeting_transcript}.
 """
 
+#prompt template for identify key decisions made during the meeting.
 key_decision_template = """
 
 You are an AI assistant specialized in identifying and summarizing key decisions made during meetings.
@@ -53,7 +60,7 @@ Meeting Transcript:
 
 """
 
-# Define the template for extracting action items and responsible participants
+# prompt template for extracting action items and responsible participants
 action_items_template = """
 You are an assistant.
 your role is to extract and organize action items and the responsible participants from the meeting transcript. 
@@ -75,8 +82,10 @@ Meeting Transcript:
 
 
 
+#configure LLM 
 google_api_key = os.getenv("GOOGLE_API_KEY")
 llm = GoogleGenerativeAI(model="gemini-1.5-flash", api_key=google_api_key)
+
 
 # reusable function to create LLM chains
 def create_llm_chain(template: str, llm_instance, doc_var_name="meeting_transcript"):
@@ -86,17 +95,19 @@ def create_llm_chain(template: str, llm_instance, doc_var_name="meeting_transcri
     )
     return LLMChain(llm=llm_instance, prompt=prompt_template)
 
-# Reusable function to load the meeting transcript
+# reusable function to load the meeting transcript
 def load_meeting_transcript(file_path) -> Document:
-    print(f"======================================={file_path}")
+  
     with open(file_path, 'r') as file:
         meeting_transcript = file.read()
     logger.info("meeting transcipt loaded")
     return Document(page_content=meeting_transcript)
 
-# Function to run LLM chain for different tasks 
+
+# function to run LLM chain for different tasks 
 def run_llm_task(llm_chain, meeting_transcript):
     return llm_chain.run(meeting_transcript)
+
 
 # Create the LLM Chains for each task
 summary_chain = create_llm_chain(summary_prompt_template, llm, doc_var_name="text")
@@ -106,6 +117,9 @@ action_items_chain = create_llm_chain(action_items_template, llm)
 
 
 def generate_meeting_insights(file_path):
+    """
+    this function invoke each chain in consequently to get response from LLM.
+    """
     meeting_transcript = load_meeting_transcript(file_path)
 
     # Run each chain and get results
@@ -117,10 +131,12 @@ def generate_meeting_insights(file_path):
     logger.info("all components of summary generated")
     return summary, discussion_points, key_decisions, action_items
 
-# Main function to generate and print insights
 def generate_detailed_summary():
+    """
+    Main function to generate summary along with other points and return the comprehensive summary of the meeting.
+    """
+
     meeting_transcript_path = path_manager.meeting_transcript
-    print(meeting_transcript_path)
     summary, discussion_points, key_decisions, action_items = generate_meeting_insights(meeting_transcript_path)
     
     return f"{summary} \n\n {discussion_points} \n\n {key_decisions} \n\n {action_items}"

@@ -8,8 +8,9 @@ from streamlit_webrtc import WebRtcMode, webrtc_streamer
 import time
 st.set_option('client.showErrorDetails', False)
 
+
 # Streamlit app with a more engaging title
-st.title("Meeting Recording and Tracking Tool")
+st.title("Meeting Recording and Tracking Section")
 
 
 if "final_discussed_points" not in st.session_state:
@@ -144,7 +145,7 @@ elif option == "Record the meeting":
                     for point in final_discussed_points:
                         st.markdown(f"<li>{point}</li>", unsafe_allow_html=True)  # Each item in the list
                     st.markdown("</ul>", unsafe_allow_html=True)  # End of bullet list
-                    
+                
 
             # Column 2: Display Undiscussed Points
             with col2:

@@ -1,6 +1,11 @@
 import yaml
 from pathlib import Path
 
+"""
+A singleton class PathManager that loads file paths from a config.yaml file 
+by changing in config.yaml it changes the path in whole code
+"""
+
 class PathManager:
     _instance = None
 
@@ -22,5 +27,5 @@ class PathManager:
     def __getattr__(self, key):
         return self.get(key)
 
-# Create a singleton instance
+
 path_manager = PathManager()
