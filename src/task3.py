@@ -117,7 +117,7 @@ def transcriber(meeting_audio_path, transcript_file_name):
     with open(transcript_file_name, 'w') as file:
             
             file.write(transcript)
-    print(transcript)
+    
     logger.info("transcribe generated")
     return transcript
 
@@ -129,9 +129,8 @@ def extract_audio(video_file_path,meeting_audio_path):
     logger.info("audio extracted from video")
 
 
-def discussion_point_tracker():
+def discussion_point_tracker(meeting_video_path):
     meeting_audio_path = path_manager.meeting_audio
-    meeting_video_path = path_manager.meeting_video
     discussion_points_path = path_manager.discussion_points
     transcript_file_name = path_manager.meeting_transcript
     

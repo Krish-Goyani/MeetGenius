@@ -1,5 +1,6 @@
 import streamlit as st
 from src import task2 
+st.set_option('client.showErrorDetails', False)
 
 st.set_page_config(
     page_title="MeetGenius",

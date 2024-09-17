@@ -110,8 +110,6 @@ def initialize_vectore_database(documents, index_name):
     logger.info("pinecone vector store invoked")
     return vector_store
      
-
-
 def agenda_generation():
     documents_content_file_path = path_manager.documents_content 
     discussion_points_file_path = path_manager.discussion_points

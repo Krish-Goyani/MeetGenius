@@ -5,6 +5,7 @@ paths:
   meeting_video: database/meeting_video.mp4
   meeting_audio: database/meeting_audio.mp3
   meeting_video: database/meeting_video.mp4
+  live_meeting_recording: database/live_meeting_recording.mp4
   meeting_transcript: database/meeting_transcript.txt
 
 

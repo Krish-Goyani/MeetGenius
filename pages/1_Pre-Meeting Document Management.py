@@ -4,6 +4,8 @@ from  src import task1
 import os
 from MeetGenius_logger import logger
 from config.path_manager import path_manager
+st.set_option('client.showErrorDetails', False)
+
 st.set_page_config(
     page_title="MeetGenius",
     page_icon="🤝",
