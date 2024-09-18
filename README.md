@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-	<img src="./assets/logo.png" alt="Logo" width="400">
+	<img src="./assets/logo.jpg" alt="Logo" width="400">
 	<h2 align="center">MeetGenius</h2>
 
   <p align="center">
