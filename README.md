@@ -1,7 +1,7 @@
 <br />
 <p align="center">
 	<img src="./assets/logo.jpg" alt="Logo" width="400">
-	<h2 align="center">MeetGenius</h2>
+	<h1 align="center">MeetGenius</h1>
 
   <p align="center">
     Intelligent Meeting Lifecycle Platform
@@ -62,33 +62,30 @@ This tool streamlines the process of managing meetings by leveraging generative 
 4. **Set up the environment variables**:
    Create a `.env` file in the root directory with the following contents:
    ```bash
-   GEMINI_API_KEY=<your_gemini_api_key>
+   GOOGLE_API_KEY=<your_gemini_api_key>
    PINECONE_API_KEY=<your_pinecone_api_key>
    ```
 
 5. **Run the Application**:
    ```bash
-   streamlit run app.py
+   streamlit run MeetGenius.py
    ```
 
 ## Usage Guidelines
 
-1. **Pre-Meeting Document Upload**:
-   - Users upload documents before the meeting.
-   - Discussion points can be entered and stored in JSON format for easier retrieval.
-   - All documents are automatically converted into text and cleaned.
+**Step 1: Pre-Meeting Document Upload**
+- Upload documents such as PDFs, reports, and presentation files.
+- Upload the discussion points.
 
-2. **Agenda Creation**:
-   - The system automatically generates an agenda based on the discussion points and relevant document content.
-   - It organizes the meeting flow and links related topics, ensuring a smooth discussion.
+**Step 2: Agenda Creation**
+- Without any clicks, wait for a few minutes to receive a comprehensive agenda for the meeting, based on the discussion points and uploaded documents.
 
-3. **Meeting Recording and Transcript Analysis**:
-   - Users can upload or record the meeting, after which the Whisper model converts the audio to text.
-   - The Langchain system stores the transcript in a vector database (Pinecone).
-   - Discussion points are tracked, and unresolved issues are flagged using RAG (Retrieval-Augmented Generation).
+**Step 3: Meeting Recording and Tracking**
+- You have two options: either upload a meeting video or record the live meeting. Based on this, the system will identify which points have been discussed and which remain unresolved.
 
-4. **Post-Meeting Summary**:
-   - The tool generates a detailed post-meeting summary including key discussion points, decisions made, and action items.
+**Step 4: Post-Meeting Summary**
+- Based on the last uploaded or recorded video, you will receive a summary that includes an overall summary, key decisions made, and action items.
+
 
 ## System Architecture
 
